@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Data & outputs
+data/raw/
+data/videos/
+checkpoints/
+runs/           # if using TensorBoard
+*.log
+
+# OS/IDE
+.DS_Store
+.vscode/
