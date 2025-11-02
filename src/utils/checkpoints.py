@@ -20,8 +20,9 @@ def save_checkpoint(state: dict, is_best: bool, ckpt_dir: str, filename: str = "
     if "epoch" in state:
         torch.save(state, ckpt_dir / f"epoch_{state['epoch']:04d}.pt")
     if is_best:
-        shutil.copy2(last_path, ckpt_dir / "best.pt")
-
+        best_path = ckpt_dir / "best.pt"
+        if last_path.resolve() != best_path.resolve():
+            shutil.copy2(last_path, best_path)
 def load_checkpoint(path: str, model, optimizer=None, scaler=None):
     """
     Returns (start_epoch, best_metric). Restores model/opt/scaler if provided.
