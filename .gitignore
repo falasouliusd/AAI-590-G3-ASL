@@ -5,13 +5,15 @@ __pycache__/
 # Notebooks
 .ipynb_checkpoints/
 
-# Data & outputs
+# Data & outputs (note trailing /)
 data/raw/
 data/videos/
-data/wlasl_preprocessed
+data/wlasl_preprocessed/
 checkpoints/
-runs/           # if using TensorBoard
+runs/
 *.log
+*.mp4
+*.zip
 
 # OS/IDE
 .DS_Store
