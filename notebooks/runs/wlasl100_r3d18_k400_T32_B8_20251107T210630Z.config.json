@@ -1,0 +1,28 @@
+{
+  "clip_len": 32,
+  "frame_size": [
+    112,
+    112
+  ],
+  "batch_size": 8,
+  "num_workers": 4,
+  "normalize": "kinetics",
+  "random_flip": false,
+  "rand_temporal": true,
+  "backbone": "r3d18_k400",
+  "dropout": 0.2,
+  "epochs": 25,
+  "lr_head_stage1": 0.003,
+  "lr_back_stage1": 0.0001,
+  "lr_head_stage2": 0.001,
+  "lr_back_stage2": 0.0003,
+  "weight_decay": 1e-05,
+  "warmup_epochs": 2,
+  "cosine_eta_min": 1e-05,
+  "amp": true,
+  "compile": true,
+  "freeze_backbone": true,
+  "unfreeze_at_epoch": 5,
+  "unfreeze_scope": "layer4",
+  "seed": 42
+}

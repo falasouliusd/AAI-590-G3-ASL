@@ -32,3 +32,6 @@ model:
   clip_len: 16
   frame_stride: 2
   input_size: [112, 112]
+  
+dataset:
+  manifest_csv: "data/wlasl_preprocessed/manifest_nslt100.csv"
