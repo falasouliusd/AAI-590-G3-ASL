@@ -8,6 +8,7 @@ __pycache__/
 # Data & outputs
 data/raw/
 data/videos/
+data/wlasl_preprocessed
 checkpoints/
 runs/           # if using TensorBoard
 *.log
