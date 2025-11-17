@@ -1,0 +1,43 @@
+Test report generated on: 2025-11-17 15:48:39
+
+Model: 'CnnBiGRUClassifier'
+Best model path: /home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/checkpoints/06_train_baseline_CNN_BiGRU_augmentation_best_cnn_bigru_top104.pt
+Num parameters: 12412584 (trainable: 12412584)
+
+Dataset splits:
+  train=831, val=192, test=136
+Num classes (present in test): 90
+Num classes (total in manifest): 104
+
+Training summary:
+  epochs ran: 20, best val acc: 0.020833333333333332, final test acc: 0.014705882352941176
+Hyperparameters:
+  epochs: 20
+  lr: 0.0003
+  weight_decay: 0.01
+  batch_size: 4
+  amp_on: True
+  clip_len: 32
+  stride: 2
+
+Top 20 per-class accuracy:
+  88	thin	acc=1.000	support=2
+  0	accident	acc=0.000	support=2
+  3	argue	acc=0.000	support=1
+  4	bad	acc=0.000	support=1
+  5	balance	acc=0.000	support=1
+  6	bar	acc=0.000	support=3
+  7	basketball	acc=0.000	support=1
+  8	because	acc=0.000	support=1
+  9	bed	acc=0.000	support=0
+  2	appointment	acc=0.000	support=2
+  11	bird	acc=0.000	support=1
+  13	blanket	acc=0.000	support=1
+  14	bowling	acc=0.000	support=1
+  15	brother	acc=0.000	support=1
+  16	call	acc=0.000	support=2
+  17	candy	acc=0.000	support=3
+  18	champion	acc=0.000	support=2
+  19	change	acc=0.000	support=1
+  20	cheat	acc=0.000	support=1
+  21	check	acc=0.000	support=1
