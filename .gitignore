@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Data & outputs (note trailing /)
+data/raw/
+data/videos/
+data/wlasl_preprocessed/
+checkpoints/
+runs/
+*.log
+*.mp4
+*.zip
+
+# OS/IDE
+.DS_Store
+.vscode/
