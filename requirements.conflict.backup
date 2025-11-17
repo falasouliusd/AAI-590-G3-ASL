@@ -1,0 +1,12 @@
+torch>=2.2
+torchvision>=0.17
+decord>=0.6.0
+mediapipe>=0.10.14
+opencv-python
+pandas
+numpy
+matplotlib
+scikit-learn
+tqdm
+streamlit
+flask
