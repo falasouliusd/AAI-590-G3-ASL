@@ -1,0 +1,44 @@
+Test report generated on: 2025-11-17 19:55:16
+
+Notebook: 06_train_baseline_3dCNN-r3d18_k400_kenetics-tuned
+Model: 'OptimizedModule'
+Best model path: /home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/checkpoints/roi_top104_r3d18_k400_T32_B8_20251118T014935Z_best.pt
+Num parameters: 33219624 (trainable: 24962152)
+
+Dataset splits:
+  train=831, val=192, test=136
+Num classes (present in test): 94
+Num classes (total in manifest): 104
+
+Training summary:
+  epochs ran: 25, best val acc: 0.078125, final test acc: 0.007352941176470588
+Hyperparameters:
+  epochs: 25
+  lr: 0.0001
+  weight_decay: 1e-05
+  batch_size: 8
+  amp_on: True
+  clip_len: 32
+  stride: 2
+
+Top 20 per-class accuracy:
+  20	cheat	acc=1.000	support=1
+  0	accident	acc=0.000	support=2
+  3	argue	acc=0.000	support=1
+  4	bad	acc=0.000	support=1
+  5	balance	acc=0.000	support=1
+  2	appointment	acc=0.000	support=2
+  7	basketball	acc=0.000	support=1
+  8	because	acc=0.000	support=1
+  10	before	acc=0.000	support=3
+  11	bird	acc=0.000	support=1
+  12	black	acc=0.000	support=0
+  13	blanket	acc=0.000	support=1
+  14	bowling	acc=0.000	support=1
+  6	bar	acc=0.000	support=3
+  15	brother	acc=0.000	support=1
+  16	call	acc=0.000	support=2
+  18	champion	acc=0.000	support=2
+  17	candy	acc=0.000	support=3
+  19	change	acc=0.000	support=1
+  21	check	acc=0.000	support=1

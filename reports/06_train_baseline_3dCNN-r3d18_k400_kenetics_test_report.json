@@ -1,0 +1,36 @@
+{
+  "created_at": "2025-11-17 18:47:50",
+  "notebook": "06_train_baseline_3dCNN-r3d18_k400_kenetics",
+  "model": "'VideoResNet'",
+  "best_model_path": "/home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/checkpoints/06_train_baseline_3dCNN-r3d18_k400_kenetics_best_cnn_Kinetics-400s.pt",
+  "num_parameters": 33219624,
+  "num_trainable_parameters": 33219624,
+  "dataset": {
+    "n_train": 831,
+    "n_val": 192,
+    "n_test": 136,
+    "num_classes_present": 96,
+    "num_classes_total_in_manifest": 104
+  },
+  "evaluation": {
+    "test_top1": 0.40441176470588236,
+    "n_samples": 136,
+    "per_class_csv": "/home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/reports/06_train_baseline_3dCNN-r3d18_k400_kenetics_per_class_accuracy.csv",
+    "confusion_matrix_png": "/home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/reports/06_train_baseline_3dCNN-r3d18_k400_kenetics_confusion_matrix_norm.png",
+    "classification_report_json": "/home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/reports/06_train_baseline_3dCNN-r3d18_k400_kenetics_classification_report.json",
+    "predictions_csv": "/home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/reports/06_train_baseline_3dCNN-r3d18_k400_kenetics_predictions.csv"
+  },
+  "training": {
+    "epochs_ran": 20,
+    "best_val_acc": 0.4322916666666667,
+    "hyperparameters": {
+      "epochs": 20,
+      "lr": 0.0001,
+      "weight_decay": 0.01,
+      "batch_size": 4,
+      "amp_on": true,
+      "clip_len": 32,
+      "stride": 2
+    }
+  }
+}
