@@ -1,0 +1,192 @@
+{
+  "summary": {
+    "ckpt": "checkpoints/06_train_baseline_3dCNN-r3d18_k400_kenetics-R(2+1)D-18-full_20251117T212836_best_state.pt",
+    "n": 20,
+    "avg_conf": 0.0,
+    "above_threshold_fraction": 0.0,
+    "accuracy": 0.0,
+    "csv": "reports/batch_roi_06_train_baseline_3dCNN-r3d18_k400_kenetics-R(2+1)D-18-full_20251117T212836_best_state_20251118T055254.csv"
+  },
+  "results": [
+    {
+      "index": 0,
+      "video": "data/wlasl_preprocessed/videos_roi/00639.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 1,
+      "video": "data/wlasl_preprocessed/videos_roi/00624.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 2,
+      "video": "data/wlasl_preprocessed/videos_roi/00632.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 3,
+      "video": "data/wlasl_preprocessed/videos_roi/00623.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 4,
+      "video": "data/wlasl_preprocessed/videos_roi/65009.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 5,
+      "video": "data/wlasl_preprocessed/videos_roi/00628.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 6,
+      "video": "data/wlasl_preprocessed/videos_roi/00631.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 7,
+      "video": "data/wlasl_preprocessed/videos_roi/00629.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 8,
+      "video": "data/wlasl_preprocessed/videos_roi/00633.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 9,
+      "video": "data/wlasl_preprocessed/videos_roi/03001.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 10,
+      "video": "data/wlasl_preprocessed/videos_roi/03008.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 11,
+      "video": "data/wlasl_preprocessed/videos_roi/03000.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 12,
+      "video": "data/wlasl_preprocessed/videos_roi/65085.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 13,
+      "video": "data/wlasl_preprocessed/videos_roi/03002.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 14,
+      "video": "data/wlasl_preprocessed/videos_roi/03005.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 15,
+      "video": "data/wlasl_preprocessed/videos_roi/03003.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 16,
+      "video": "data/wlasl_preprocessed/videos_roi/65084.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 17,
+      "video": "data/wlasl_preprocessed/videos_roi/03055.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 18,
+      "video": "data/wlasl_preprocessed/videos_roi/03056.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    },
+    {
+      "index": 19,
+      "video": "data/wlasl_preprocessed/videos_roi/03063.mp4",
+      "true_label": null,
+      "pred": null,
+      "conf": 0.0,
+      "match": false,
+      "error": "CUDA error: out of memory\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n"
+    }
+  ]
+}
