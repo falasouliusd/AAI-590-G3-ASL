@@ -98,17 +98,14 @@ def read_video_frames_opencv(path, clip_len=32, resize=(112, 112), stride=2):
     return arr
 
 
-def frames_to_tensor(frames_np, skip_normalize: bool = False):
-    """Convert frames [T,H,W,C] -> tensor [1,T,C,H,W].
-    If skip_normalize is True the function will not apply any normalization
-    (useful when the clip is already preprocessed / ROI crops).
-    """
+def frames_to_tensor(frames_np):
+    # frames_np: [T, H, W, C] -> tensor [1, T, C, H, W]
     t = torch.from_numpy(frames_np).permute(0, 3, 1, 2).contiguous()  # [T, C, H, W]
-    if not skip_normalize:
-        if use_training_norm:
-            t = training_normalize_tensor(t)
-        else:
-            t = kinetics_normalize_tensor(t)
+    # Use the training normalization by default (matches src/data/wlasl_ds.py)
+    if st.sidebar.checkbox('Use training normalization (mean=0.45,std=0.225)', value=True):
+        t = training_normalize_tensor(t)
+    else:
+        t = kinetics_normalize_tensor(t)
     t = t.unsqueeze(0)  # [1, T, C, H, W]
     return t
 
@@ -250,14 +247,6 @@ if manifest_upload is not None:
 # confidence threshold and top-k
 conf_threshold = sidebar.slider('Confidence threshold (top-1) — below this shows "No confident translation"', min_value=0.0, max_value=1.0, value=0.10, step=0.01)
 top_k = sidebar.number_input('Show top-k predictions', min_value=1, max_value=10, value=3)
-
-# normalization / ROI handling options
-use_training_norm = sidebar.checkbox('Use training normalization (mean=0.45,std=0.225)', value=True)
-skip_roi_preproc = sidebar.checkbox('Treat videos in data/wlasl_preprocessed/videos_roi as preprocessed (skip resize/normalize)', value=True)
-
-# canonical ROI videos directory used for skip-detection
-videos_dir = Path('data/wlasl_preprocessed/videos_roi')
-
 
 def auto_load_manifest():
     """Try to auto-detect a manifest CSV in the repository data folder that contains label_new and gloss."""
@@ -449,7 +438,6 @@ if mode == 'Upload video':
             sel = st.selectbox('Or pick a sample video from the manifest (existing files)', options=['-- none --'] + options)
             if sel != '-- none --':
                 sel_idx = int(sel.split(':', 1)[0])
-                sel_idx = int(sel.split(':', 1)[0])
                 sample_chosen = sample_candidates[sel_idx][0]
                 st.write('Selected sample:', sample_chosen)
                 if st.button('Use selected sample as uploaded video'):
@@ -470,22 +458,8 @@ if mode == 'Upload video':
             else:
                 try:
                     with st.spinner('Reading and preprocessing video...'):
-                        # determine whether this uploaded file should be treated as ROI-preprocessed
-                        is_roi = False
-                        try:
-                            if videos_dir.exists():
-                                try:
-                                    tmp_res = Path(tmp_path).resolve()
-                                    is_roi = tmp_res.is_relative_to(videos_dir.resolve())
-                                except Exception:
-                                    # fallback for older Python versions: use relative check
-                                    is_roi = str(tmp_path).startswith(str(videos_dir))
-                        except Exception:
-                            is_roi = False
-
-                        read_resize = None if (skip_roi_preproc and is_roi) else (112,112)
-                        frames = read_video_frames_opencv(tmp_path, clip_len=32, resize=read_resize)
-                        tensor = frames_to_tensor(frames, skip_normalize=(skip_roi_preproc and is_roi))  # [1, T, C, H, W]
+                        frames = read_video_frames_opencv(tmp_path, clip_len=32, resize=(112,112))
+                        tensor = frames_to_tensor(frames)  # [1, T, C, H, W]
                     with st.spinner('Running inference...'):
                         pred, conf, probs = predict_tensor(m, tensor)
 
@@ -570,21 +544,8 @@ if mode == 'Upload video':
             else:
                 try:
                     with st.spinner('Reading and preprocessing selected sample...'):
-                        # determine whether we should skip preprocessing for this sample
-                        is_roi = False
-                        try:
-                            if videos_dir.exists():
-                                try:
-                                    sp_res = sample_path.resolve()
-                                    is_roi = sp_res.is_relative_to(videos_dir.resolve())
-                                except Exception:
-                                    is_roi = str(sample_path).startswith(str(videos_dir))
-                        except Exception:
-                            is_roi = False
-
-                        read_resize = None if (skip_roi_preproc and is_roi) else (112,112)
-                        frames = read_video_frames_opencv(sample_path, clip_len=32, resize=read_resize)
-                        tensor = frames_to_tensor(frames, skip_normalize=(skip_roi_preproc and is_roi))  # [1, T, C, H, W]
+                        frames = read_video_frames_opencv(sample_path, clip_len=32, resize=(112,112))
+                        tensor = frames_to_tensor(frames)  # [1, T, C, H, W]
                     with st.spinner('Running inference...'):
                         pred, conf, probs = predict_tensor(m, tensor)
 
