@@ -1,0 +1,13 @@
+{
+  "created_at": "2025-11-17 22:52:55",
+  "notebook": "06_train_baseline_3dCNN-r3d18_k400_kenetics-R(2+1)D-18",
+  "run_id": "06_train_baseline_3dCNN-r3d18_k400_kenetics-R(2+1)D-18_20251117T225252",
+  "best_checkpoint": "/home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/checkpoints/best.pt",
+  "test_top1": 0.40441176470588236,
+  "n_samples": 136,
+  "num_classes_present": 94,
+  "per_class_csv": "/home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/reports/06_train_baseline_3dCNN-r3d18_k400_kenetics-R(2+1)D-18_20251117T225252_per_class_accuracy.csv",
+  "confusion_matrix_png": "/home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/reports/06_train_baseline_3dCNN-r3d18_k400_kenetics-R(2+1)D-18_20251117T225252_confusion_matrix_norm.png",
+  "classification_report_json": "/home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/reports/06_train_baseline_3dCNN-r3d18_k400_kenetics-R(2+1)D-18_20251117T225252_classification_report.json",
+  "predictions_csv": "/home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/reports/06_train_baseline_3dCNN-r3d18_k400_kenetics-R(2+1)D-18_20251117T225252_predictions.csv"
+}

@@ -2,7 +2,7 @@
 from pathlib import Path
 import shutil, torch
 
-def save_checkpoint(state: dict, is_best: bool, ckpt_dir: str, filename: str = "last.pt"):
+def save_checkpoint(state: dict, is_best: bool, ckpt_dir: str, filename: str = "last.pt", best_filename: str = None):
     """
     state: {
       "epoch": int,
@@ -20,7 +20,23 @@ def save_checkpoint(state: dict, is_best: bool, ckpt_dir: str, filename: str = "
     if "epoch" in state:
         torch.save(state, ckpt_dir / f"epoch_{state['epoch']:04d}.pt")
     if is_best:
-        best_path = ckpt_dir / "best.pt"
+        # Determine a sensible best filename.
+        # If caller provided best_filename, use it. Otherwise try to
+        # produce a best filename that preserves any run-tag prefix.
+        if best_filename:
+            best_path = ckpt_dir / best_filename
+        else:
+            # common patterns: 'last.pt' -> 'best.pt',
+            # '{run}_last.pt' -> '{run}_best.pt',
+            # 'epoch_0001.pt' -> 'epoch_0001_best.pt' (append)
+            name = filename
+            if "last" in name:
+                best_name = name.replace("last", "best")
+            elif name.startswith("epoch_") and name.endswith(".pt"):
+                best_name = name.replace(".pt", "_best.pt")
+            else:
+                best_name = "best.pt"
+            best_path = ckpt_dir / best_name
         if last_path.resolve() != best_path.resolve():
             shutil.copy2(last_path, best_path)
 def load_checkpoint(path: str, model, optimizer=None, scaler=None):

@@ -1,0 +1,7 @@
+Test report
+Created: 2025-11-17 22:52:55
+Notebook: 06_train_baseline_3dCNN-r3d18_k400_kenetics-R(2+1)D-18
+Run: 06_train_baseline_3dCNN-r3d18_k400_kenetics-R(2+1)D-18_20251117T225252
+Checkpoint: /home/falasoul/notebooks/USD/AAI-590/Capstone/AAI-590-G3-ASL/checkpoints/best.pt
+Test Top1: 0.40441176470588236 (N=136)
+Num classes present: 94
