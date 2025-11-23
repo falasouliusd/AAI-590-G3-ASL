@@ -1,13 +1,12 @@
 """
-Streamlit app for ASL model inference (upload file or simple webcam snapshots).
+Streamlit sanity-check app for ASL inference with the VideoResNet baseline preset.
 
 Usage:
-    pip install -r requirements.txt  # ensure streamlit, torch, torchvision, opencv-python, pandas, numpy
-    streamlit run apps/streamlit_app.py
+    pip install -r requirements.txt
+    streamlit run apps/streamlit_app_quicktest.py
 
-Notes:
-- The app includes a simple implementation of R(2+1)D-18 wrapper used in training so it can load checkpoints saved as state_dicts or simple checkpoint dicts that contain 'model_state' or 'state_dict'.
-- Live streaming here is implemented using repeated camera snapshots (Streamlit's `st.camera_input`) collected into a clip. For true continuous low-latency streaming, consider using `streamlit-webrtc`.
+This lightweight view keeps the same functionality as the main demo but preselects
+the best VideoResNet checkpoint and adds a one-click sanity test on a known clip.
 """
 
 import streamlit as st
@@ -171,7 +170,6 @@ def robust_load_checkpoint(model, ckpt_path):
             result = model.load_state_dict(sd, strict=strict)
             if strict:
                 return True
-            # when strict=False, ensure there are no missing/unexpected keys
             missing = getattr(result, 'missing_keys', [])
             unexpected = getattr(result, 'unexpected_keys', [])
             return not missing and not unexpected
@@ -269,7 +267,10 @@ ckpt_dir = Path('checkpoints')
 ckpt_dir.mkdir(exist_ok=True)
 available_ckpts = sorted({p.name for pattern in ('*.pt', '*.pth') for p in ckpt_dir.glob(pattern)})
 
-ckpt_choice = sidebar.selectbox('Select checkpoint from `checkpoints/`', options=['-- none --'] + available_ckpts)
+preferred_ckpt = '06_train_baseline_3dCNN-r3d18_k400_kenetics_best_cnn_Kinetics-400s.pt'
+ckpt_options = ['-- none --'] + available_ckpts
+default_ckpt_idx = ckpt_options.index(preferred_ckpt) if preferred_ckpt in ckpt_options else 0
+ckpt_choice = sidebar.selectbox('Select checkpoint from `checkpoints/`', options=ckpt_options, index=default_ckpt_idx)
 uploaded_ckpt = sidebar.file_uploader('Or upload a checkpoint (.pt/.pth)', type=['pt', 'pth'])
 
 # optional manifest to map label->gloss
@@ -297,6 +298,8 @@ skip_roi_preproc = sidebar.checkbox('Skip resize/normalize for ROI clips (only i
 # canonical ROI videos directory used for skip-detection
 videos_dir = Path('data/wlasl_preprocessed/videos_roi')
 DEFAULT_MANIFEST_PATH = Path('data/wlasl_preprocessed/manifest_nslt2000_roi_top104_balanced_clean.csv')
+SANITY_SAMPLE_PATH = videos_dir / '69219.mp4'
+SANITY_SAMPLE_LABEL = 'bad'
 
 
 def ensure_manifest_df_loaded():
@@ -495,6 +498,69 @@ def _load_ckpt_and_store(ckpt_path, arch_choice):
         st.session_state['ckpt_loaded'] = None
         st.exception(e)
 
+
+def run_inference_on_path(video_path, describe='clip'):
+    """Shared helper to run inference on a given video path."""
+    m = st.session_state.get('model_obj')
+    if m is None:
+        st.warning('Model not loaded — please load a checkpoint (or create one).')
+        return
+    vp = Path(video_path)
+    if not vp.exists():
+        st.error(f'Video path does not exist: {vp}')
+        return
+    try:
+        manifest_entry = lookup_manifest_entry(vp.name)
+        in_manifest, manifest_row_path, manifest_label, true_gloss = manifest_entry_details(manifest_entry)
+        with st.spinner(f'Reading and preprocessing {describe}...'):
+            is_roi = False
+            if skip_roi_preproc:
+                is_roi = is_path_in_roi_folder(vp)
+                if (not is_roi) and in_manifest and manifest_row_path:
+                    try:
+                        manifest_candidate = Path(str(manifest_row_path))
+                        if manifest_candidate.exists() and is_path_in_roi_folder(manifest_candidate):
+                            is_roi = True
+                    except Exception:
+                        pass
+            read_resize = None if (skip_roi_preproc and is_roi) else (112,112)
+            frames = read_video_frames_opencv(vp, clip_len=32, resize=read_resize, stride=2)
+            tensor = frames_to_tensor(frames, skip_normalize=(skip_roi_preproc and is_roi))
+        with st.spinner('Running inference...'):
+            pred, conf, probs = predict_tensor(m, tensor)
+        probs_arr = np.array(probs)
+        topk_idx = probs_arr.argsort()[::-1][:top_k]
+        topk = [(int(i), float(probs_arr[i])) for i in topk_idx]
+        lines = []
+        for i, pscore in topk:
+            name = label_map.get(i) if label_map is not None else str(i)
+            lines.append({'label': int(i), 'gloss': name, 'confidence': float(pscore)})
+        st.session_state['last_debug'] = {
+            'checkpoint': st.session_state.get('ckpt_loaded'),
+            'clip_path': str(vp),
+            'tensor_shape': tuple(tensor.shape),
+            'tensor_min': float(tensor.min()),
+            'tensor_max': float(tensor.max()),
+            'topk': lines,
+            'probs': probs_arr.tolist(),
+            'in_manifest': in_manifest,
+            'manifest_row_path': str(manifest_row_path) if manifest_row_path is not None else None,
+            'manifest_label': int(manifest_label) if manifest_label is not None else None,
+            'true_gloss': true_gloss
+        }
+        display_obj = {'top_k': lines}
+        if true_gloss is not None:
+            display_obj['true_gloss'] = true_gloss
+            display_obj['in_manifest'] = in_manifest
+        if float(topk[0][1]) < conf_threshold:
+            result_box.warning('No confident translation found (top-1 confidence below threshold).')
+            result_box.json(display_obj)
+        else:
+            result_box.success(f"Prediction: {lines[0]['gloss']} (label={lines[0]['label']}) — confidence {lines[0]['confidence']:.2f}")
+            result_box.json(display_obj)
+    except Exception as e:
+        st.error('Error during inference: ' + str(e))
+
 # Manual load button (still available)
 if st.button('Load selected checkpoint'):
     try:
@@ -566,6 +632,9 @@ if mode == 'Upload video':
     except Exception:
         # non-fatal: sample selector is an optional convenience
         pass
+    if SANITY_SAMPLE_PATH.exists():
+        if st.button(f"Run built-in sanity check (gloss '{SANITY_SAMPLE_LABEL}')", key='btn_sanity_sample'):
+            run_inference_on_path(SANITY_SAMPLE_PATH, f"sanity sample ({SANITY_SAMPLE_LABEL})")
     if uploaded is not None:
         tmp_path = Path(tempfile.gettempdir()) / f"uploaded_video_{int(time.time())}.{uploaded.name.split('.')[-1]}"
         with open(tmp_path, 'wb') as f:
@@ -573,117 +642,13 @@ if mode == 'Upload video':
         st.info(f'File saved to {tmp_path}')
 
         if st.button('Process uploaded video'):
-            m = st.session_state.get('model_obj')
-            if m is None:
-                st.warning('Model not loaded — please load a checkpoint (or create one).')
-            else:
-                try:
-                    manifest_entry = lookup_manifest_entry(tmp_path.name)
-                    in_manifest, manifest_row_path, manifest_label, true_gloss = manifest_entry_details(manifest_entry)
-                    with st.spinner('Reading and preprocessing video...'):
-                        # determine whether this uploaded file should be treated as ROI-preprocessed
-                        is_roi = False
-                        if skip_roi_preproc:
-                            is_roi = is_path_in_roi_folder(tmp_path)
-                            if (not is_roi) and in_manifest and manifest_row_path:
-                                try:
-                                    manifest_candidate = Path(str(manifest_row_path))
-                                    if manifest_candidate.exists() and is_path_in_roi_folder(manifest_candidate):
-                                        is_roi = True
-                                except Exception:
-                                    pass
-                        read_resize = None if (skip_roi_preproc and is_roi) else (112,112)
-                        frames = read_video_frames_opencv(tmp_path, clip_len=32, resize=read_resize, stride=2)
-                        tensor = frames_to_tensor(frames, skip_normalize=(skip_roi_preproc and is_roi))  # [1, T, C, H, W]
-                    with st.spinner('Running inference...'):
-                        pred, conf, probs = predict_tensor(m, tensor)
-
-                    # build top-k
-                    probs_arr = np.array(probs)
-                    topk_idx = probs_arr.argsort()[::-1][:top_k]
-                    topk = [(int(i), float(probs_arr[i])) for i in topk_idx]
-
-                    # show top-k with names if available
-                    lines = []
-                    for i, pscore in topk:
-                        name = label_map.get(i) if label_map is not None else str(i)
-                        lines.append({'label': int(i), 'gloss': name, 'confidence': float(pscore)})
-
-                    # store debug info for expander, include manifest lookup
-                    st.session_state['last_debug'] = {
-                        'checkpoint': st.session_state.get('ckpt_loaded'),
-                        'clip_path': str(tmp_path),
-                        'tensor_shape': tuple(tensor.shape),
-                        'tensor_min': float(tensor.min()),
-                        'tensor_max': float(tensor.max()),
-                        'topk': lines,
-                        'probs': probs_arr.tolist(),
-                        'in_manifest': in_manifest,
-                        'manifest_row_path': str(manifest_row_path) if manifest_row_path is not None else None,
-                        'manifest_label': int(manifest_label) if manifest_label is not None else None,
-                        'true_gloss': true_gloss
-                    }
-
-                    # include true gloss in the displayed JSON if available
-                    display_obj = {'top_k': lines}
-                    if true_gloss is not None:
-                        display_obj['true_gloss'] = true_gloss
-                        display_obj['in_manifest'] = in_manifest
-
-                    if float(topk[0][1]) < conf_threshold:
-                        result_box.warning('No confident translation found (top-1 confidence below threshold).')
-                        result_box.json(display_obj)
-                    else:
-                        result_box.success(f"Prediction: {lines[0]['gloss']} (label={lines[0]['label']}) — confidence {lines[0]['confidence']:.2f}")
-                        result_box.json(display_obj)
-                except Exception as e:
-                    st.error('Error during inference: ' + str(e))
+            run_inference_on_path(tmp_path, 'uploaded video')
 
     # If a manifest-selected sample is present in session_state, allow processing it
     if st.session_state.get('selected_sample_path') is not None and Path(st.session_state.get('selected_sample_path')).exists():
         if st.button('Process selected sample'):
             sample_path = Path(st.session_state.get('selected_sample_path'))
-            m = st.session_state.get('model_obj')
-            if m is None:
-                st.warning('Model not loaded — please load a checkpoint (or create one).')
-            else:
-                try:
-                    with st.spinner('Reading and preprocessing selected sample...'):
-                        # determine whether we should skip preprocessing for this sample
-                        is_roi = False
-                        if skip_roi_preproc:
-                            is_roi = is_path_in_roi_folder(sample_path)
-
-                        read_resize = None if (skip_roi_preproc and is_roi) else (112,112)
-                        frames = read_video_frames_opencv(sample_path, clip_len=32, resize=read_resize, stride=2)
-                        tensor = frames_to_tensor(frames, skip_normalize=(skip_roi_preproc and is_roi))  # [1, T, C, H, W]
-                    with st.spinner('Running inference...'):
-                        pred, conf, probs = predict_tensor(m, tensor)
-
-                    probs_arr = np.array(probs)
-                    topk_idx = probs_arr.argsort()[::-1][:top_k]
-                    topk = [(int(i), float(probs_arr[i])) for i in topk_idx]
-                    lines = []
-                    for i, pscore in topk:
-                        name = label_map.get(i) if label_map is not None else str(i)
-                        lines.append({'label': int(i), 'gloss': name, 'confidence': float(pscore)})
-
-                    manifest_entry = lookup_manifest_entry(sample_path.name)
-                    in_manifest, manifest_row_path, manifest_label, true_gloss = manifest_entry_details(manifest_entry)
-
-                    display_obj = {'top_k': lines}
-                    if true_gloss is not None:
-                        display_obj['true_gloss'] = true_gloss
-                        display_obj['in_manifest'] = in_manifest
-
-                    if float(topk[0][1]) < conf_threshold:
-                        result_box.warning('No confident translation found (top-1 confidence below threshold).')
-                        result_box.json(display_obj)
-                    else:
-                        result_box.success(f"Prediction: {lines[0]['gloss']} (label={lines[0]['label']}) — confidence {lines[0]['confidence']:.2f}")
-                        result_box.json(display_obj)
-                except Exception as e:
-                    st.error('Error during inference: ' + str(e))
+            run_inference_on_path(sample_path, 'selected sample')
 
 else:
     st.write('Live (simple snapshots) mode: use the camera to capture multiple frames and then process as a clip.')
