@@ -1,0 +1,172 @@
+{
+  "summary": {
+    "ckpt": "checkpoints/06_train_baseline_3dCNN-r3d18_k400_kenetics-R(2+1)D-18-full_20251117T212836_best_state.pt",
+    "n": 20,
+    "avg_conf": 0.04726080568507314,
+    "above_threshold_fraction": 0.05,
+    "accuracy": 0.0,
+    "csv": "reports/batch_roi_06_train_baseline_3dCNN-r3d18_k400_kenetics-R(2+1)D-18-full_20251117T212836_best_state_20251118T055521.csv"
+  },
+  "results": [
+    {
+      "index": 0,
+      "video": "data/wlasl_preprocessed/videos_roi/00639.mp4",
+      "true_label": 0,
+      "pred": 11,
+      "conf": 0.02429627627134323,
+      "match": false
+    },
+    {
+      "index": 1,
+      "video": "data/wlasl_preprocessed/videos_roi/00624.mp4",
+      "true_label": 0,
+      "pred": 27,
+      "conf": 0.03376837819814682,
+      "match": false
+    },
+    {
+      "index": 2,
+      "video": "data/wlasl_preprocessed/videos_roi/00632.mp4",
+      "true_label": 0,
+      "pred": 394,
+      "conf": 0.04929748922586441,
+      "match": false
+    },
+    {
+      "index": 3,
+      "video": "data/wlasl_preprocessed/videos_roi/00623.mp4",
+      "true_label": 0,
+      "pred": 493,
+      "conf": 0.022818442434072495,
+      "match": false
+    },
+    {
+      "index": 4,
+      "video": "data/wlasl_preprocessed/videos_roi/65009.mp4",
+      "true_label": 0,
+      "pred": 261,
+      "conf": 0.029635854065418243,
+      "match": false
+    },
+    {
+      "index": 5,
+      "video": "data/wlasl_preprocessed/videos_roi/00628.mp4",
+      "true_label": 0,
+      "pred": 493,
+      "conf": 0.08060649037361145,
+      "match": false
+    },
+    {
+      "index": 6,
+      "video": "data/wlasl_preprocessed/videos_roi/00631.mp4",
+      "true_label": 0,
+      "pred": 643,
+      "conf": 0.06904146075248718,
+      "match": false
+    },
+    {
+      "index": 7,
+      "video": "data/wlasl_preprocessed/videos_roi/00629.mp4",
+      "true_label": 0,
+      "pred": 151,
+      "conf": 0.03395876660943031,
+      "match": false
+    },
+    {
+      "index": 8,
+      "video": "data/wlasl_preprocessed/videos_roi/00633.mp4",
+      "true_label": 0,
+      "pred": 226,
+      "conf": 0.057902343571186066,
+      "match": false
+    },
+    {
+      "index": 9,
+      "video": "data/wlasl_preprocessed/videos_roi/03001.mp4",
+      "true_label": 1,
+      "pred": 151,
+      "conf": 0.026392878964543343,
+      "match": false
+    },
+    {
+      "index": 10,
+      "video": "data/wlasl_preprocessed/videos_roi/03008.mp4",
+      "true_label": 1,
+      "pred": 644,
+      "conf": 0.04330763965845108,
+      "match": false
+    },
+    {
+      "index": 11,
+      "video": "data/wlasl_preprocessed/videos_roi/03000.mp4",
+      "true_label": 1,
+      "pred": 644,
+      "conf": 0.030639832839369774,
+      "match": false
+    },
+    {
+      "index": 12,
+      "video": "data/wlasl_preprocessed/videos_roi/65085.mp4",
+      "true_label": 1,
+      "pred": 493,
+      "conf": 0.030427144840359688,
+      "match": false
+    },
+    {
+      "index": 13,
+      "video": "data/wlasl_preprocessed/videos_roi/03002.mp4",
+      "true_label": 1,
+      "pred": 124,
+      "conf": 0.02881499007344246,
+      "match": false
+    },
+    {
+      "index": 14,
+      "video": "data/wlasl_preprocessed/videos_roi/03005.mp4",
+      "true_label": 1,
+      "pred": 643,
+      "conf": 0.03861187770962715,
+      "match": false
+    },
+    {
+      "index": 15,
+      "video": "data/wlasl_preprocessed/videos_roi/03003.mp4",
+      "true_label": 1,
+      "pred": 628,
+      "conf": 0.04851815104484558,
+      "match": false
+    },
+    {
+      "index": 16,
+      "video": "data/wlasl_preprocessed/videos_roi/65084.mp4",
+      "true_label": 1,
+      "pred": 151,
+      "conf": 0.054633695632219315,
+      "match": false
+    },
+    {
+      "index": 17,
+      "video": "data/wlasl_preprocessed/videos_roi/03055.mp4",
+      "true_label": 2,
+      "pred": 394,
+      "conf": 0.16579872369766235,
+      "match": false
+    },
+    {
+      "index": 18,
+      "video": "data/wlasl_preprocessed/videos_roi/03056.mp4",
+      "true_label": 2,
+      "pred": 617,
+      "conf": 0.049993593245744705,
+      "match": false
+    },
+    {
+      "index": 19,
+      "video": "data/wlasl_preprocessed/videos_roi/03063.mp4",
+      "true_label": 2,
+      "pred": 261,
+      "conf": 0.026752084493637085,
+      "match": false
+    }
+  ]
+}
