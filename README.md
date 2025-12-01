@@ -44,6 +44,22 @@ pip install -r requirements.txt  # first-time setup
 streamlit run apps/streamlit_app_multitab_live.py --server.port 8501
 ```
 
+#### Local Windows setup (Python 3.11 + venv)
+
+The repository has also been tested on Windows 11 with Python 3.11 in a virtual environment. A minimal setup looks like:
+
+```powershell
+cd C:\Temp\USD\590-G3-ASL\AAI-590-G3-ASL
+
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+
+streamlit run apps/streamlit_app_multitab_live.py --server.port 8501
+
+
 Key tabs expose preprocessing audits, per-class metrics, inference demos, and ROI previewers. Update this file first when adding UI functionality.
 
 ---
