@@ -58,9 +58,7 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 streamlit run apps/streamlit_app_multitab_live.py --server.port 8501
-
-
-Key tabs expose preprocessing audits, per-class metrics, inference demos, and ROI previewers. Update this file first when adding UI functionality.
+```
 
 ---
 
