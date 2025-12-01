@@ -89,3 +89,9 @@ Use the scripts for reproducible batch runs; refer to the notebooks when you nee
 ---
 
 For questions or contributions, open an issue/PR or reach out via the emails above. When extending the pipeline, update the relevant notebook and a matching helper script so batch workflows stay in sync.
+
+---
+### Checkpoints
+Due to size limit these are saved on drive
+https://drive.google.com/drive/folders/1GioVPayxsfmPp2a-9FztuoI1wAiHW1DT?usp=drive_link
+its shared with instructor, if you have any questions please email authors. 
