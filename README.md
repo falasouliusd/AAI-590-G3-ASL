@@ -1,6 +1,11 @@
-## AAI-590-G3-ASL
+## Sign Language Recognition using Deep Learning
 
-Applied Sign Language recognition pipeline for WLASL dataset. The repo covers manifest generation, video cleaning, ROI extraction, balanced subset selection, baseline model training, and interactive demos.
+### Project Description
+
+This project implements a real-time American Sign Language (ASL) word-level recognition system using deep learning and computer vision. Built from scratch as part of the University of San Diego’s AAI-590 Capstone, the system processes short video clips or live webcam streams to classify ASL glosses using a 3D convolutional neural network architecture.
+
+The pipeline includes full data preprocessing, MediaPipe-based region-of-interest extraction, temporal frame sampling, augmentation, model training, and evaluation. Multiple architectures were tested, with R(2+1)D-18 pretrained on Kinetics-400 achieving the highest validation performance.
+The project provides an interactive demo interface and lays the groundwork for future expansion toward full ASL-to-English sentence translation.
 
 ---
 
@@ -109,3 +114,9 @@ For questions or contributions, open an issue/PR or reach out via the emails abo
 Due to size limit these are saved on drive
 https://drive.google.com/drive/folders/1GioVPayxsfmPp2a-9FztuoI1wAiHW1DT?usp=drive_link
 its shared with instructor, if you have any questions please email authors. 
+
+
+### Acknowledgments
+
+We would like to thank the University of San Diego’s Applied Artificial Intelligence program for providing the foundation, guidance, and motivation behind this project. Special thanks to our instructor, Anna Marbut, M.S., for her mentorship and continuous support throughout the capstone.
+We also acknowledge the contributors of the WLASL dataset, whose work made this research and model development possible.
