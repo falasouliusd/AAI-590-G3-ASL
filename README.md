@@ -38,7 +38,7 @@ AAI-590-G3-ASL/
 
 ---
 
-### Streamlit App
+### Streamlit App (Used for Demo)
 
 The current demo lives in `apps/streamlit_app_multitab_live.py`. Earlier files (`app_streamlit.py`, `streamlit_app.py`) remain for reference but may lag features/data bindings.
 
